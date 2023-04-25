@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<configuration>
+  <startup useLegacyV2RuntimeActivationPolicy="true">
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.1" />
+  </startup>
+  <system.net>
+    <connectionManagement>
+      <clear />
+      <add address="*" maxconnection="100" />
+    </connectionManagement>
+  </system.net>
+  <system.serviceModel>
+    <services>
+      <service behaviorConfiguration="BrokerAdminServiceBehavior" name="Citrix.Broker.Admin.SDK.BrokerAdminService">
+        <endpoint address="http://localhost:89/Citrix/BrokerAdminService/v2" behaviorConfiguration="BehaviorConfigurationForRemoteAccess" binding="wsHttpBinding" bindingConfiguration="WsHttpBindingForRemoteAccess" name="WsHttpBindingIBrokerAdminServiceEndpoint" contract="Citrix.Broker.Admin.SDK.IBrokerAdminService" />
+      </service>
+      <service name="Citrix.Cds.CdsController.BrokerAdminQuery">
+        <endpoint address="http://localhost:89/Citrix/BrokerAdminQuery/v1" binding="wsHttpBinding" bindingConfiguration="WsHttpBindingForIsm" name="WsHttpBindingIBrokerAdminQueryEndpoint" contract="Citrix.Broker.Admin.IBrokerAdminQuery" />
+      </service>
+      <service name="Citrix.Cds.CdsController.BrokerEnvTests">
+        <endpoint address="http://localhost:89/Citrix/BrokerEnvTests/v1" binding="wsHttpBinding" bindingConfiguration="WsHttpBindingForIsm" name="WsHttpBindingIBrokerEnvTestsEndpoint" contract="Citrix.EnvTest.Interfaces.IEnvTestApi" />
+      </service>
+      <service name="Citrix.Cds.Broker.Registrar">
+        <endpoint address="http://localhost:80/Citrix/CdsController/IRegistrar" behaviorConfiguration="BehaviorConfigurationForLargeObjectGraph" binding="wsHttpBinding" bindingConfiguration="ControllerWsHttpBindingWithLargeMessageSize" name="WsHttpBindingIRegistrarEndpoint" contract="Citrix.Cds.Protocol.Controller.IRegistrar" />
+      </service>
+      <service name="Citrix.Cds.Broker.TicketingService">
+        <endpoint address="http://localhost:80/Citrix/CdsController/ITicketing" binding="wsHttpBinding" bindingConfiguration="ControllerWsHttpBinding" name="WsHttpBindingITicketingEndpoint" contract="Citrix.Cds.Protocol.Controller.ITicketing" />
+      </service>
+      <service name="Citrix.Cds.Broker.DataSinkService">
+        <endpoint address="http://localhost:80/Citrix/CdsController/IDynamicDataSink" binding="wsHttpBinding" bindingConfiguration="ControllerWsHttpBinding" name="WsHttpBindingIDynamicDataSinkEndpoint" contract="Citrix.Cds.Protocol.Controller.IDynamicDataSink" />
+      </service>
+      <service name="Citrix.Cds.Broker.NotifyBroker">
+        <endpoint address="http://localhost:80/Citrix/CdsController/INotifyBroker" binding="wsHttpBinding" bindingConfiguration="ControllerWsHttpBinding" name="WsHttpBindingINotifyBrokerEndpoint" contract="Citrix.Cds.Protocol.Controller.INotifyBroker" />
+      </service>
+      <service name="Citrix.Cds.Broker.SecondaryBrokerControl">
+        <endpoint address="net.pipe://localhost/Citrix/HighAvailability/SecondaryBrokerControl" binding="netNamedPipeBinding" name="NamedPipeBindingISecondaryBrokerControl" contract="Citrix.Cds.HighAvailability.ISecondaryBrokerControl" />
+      </service>
+    </services>
+    <client>
+      <endpoint name="WsHttpBindingILaunchEndpoint" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBinding" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.ILaunch" />
+      <endpoint name="WsHttpBindingIDynamicDataQueryEndpoint" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBinding" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.IDynamicDataQuery" />
+      <endpoint name="WsHttpBindingIConfigurationEndpoint" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBinding" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.IConfiguration" />
+      <endpoint name="WsHttpBindingISessionManagerEndpoint" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBinding" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.ISessionManager" />
+      <endpoint name="WsHttpBindingIQueryAgentEndpoint" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBindingWithLargeMessageSize" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.IQueryAgent" />
+      <endpoint name="NamedPipeBindingISecondaryBrokerControl" binding="netNamedPipeBinding" address="net.pipe://localhost/Citrix/HighAvailability/SecondaryBrokerControl" contract="Citrix.Cds.HighAvailability.ISecondaryBrokerControl" />
+      <endpoint name="WsHttpBindingILaunchEndpointLinux" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBindingLinux" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.ILaunch" />
+      <endpoint name="WsHttpBindingIDynamicDataQueryEndpointLinux" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBindingLinux" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.IDynamicDataQuery" />
+      <endpoint name="WsHttpBindingIConfigurationEndpointLinux" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBindingLinux" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.IConfiguration" />
+      <endpoint name="WsHttpBindingISessionManagerEndpointLinux" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBindingLinux" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.ISessionManager" />
+      <endpoint name="WsHttpBindingIQueryAgentEndpointLinux" binding="wsHttpBinding" bindingConfiguration="WorkerWsHttpBindingWithLargeMessageSizeLinux" behaviorConfiguration="WorkerEndpointBehaviour" contract="Citrix.Cds.Protocol.Worker.IQueryAgent" />
+    </client>
+    <!--For debugging purposes, set the includeExceptionDetailInFaults attribute to true.-->
+    <behaviors>
+      <serviceBehaviors>
+        <behavior name="BrokerAdminServiceBehavior">
+          <serviceThrottling maxConcurrentSessions="200" maxConcurrentCalls="32" />
+        </behavior>
+      </serviceBehaviors>
+      <endpointBehaviors>
+        <behavior name="BehaviorConfigurationForRemoteAccess">
+          <!-- Warning: May be reduced in future once all consumers move to chunked queries -->
+          <dataContractSerializer maxItemsInObjectGraph="2147483647" />
+        </behavior>
+        <behavior name="BehaviorConfigurationForLargeObjectGraph">
+          <dataContractSerializer maxItemsInObjectGraph="4194304" />
+        </behavior>
+        <behavior name="WorkerEndpointBehaviour">
+          <clientCredentials>
+            <windows allowNtlm="false" allowedImpersonationLevel="Identification" />
+          </clientCredentials>
+          <dataContractSerializer maxItemsInObjectGraph="4194304" />
+        </behavior>
+      </endpointBehaviors>
+    </behaviors>
+    <bindings>
+      <wsHttpBinding>
+        <binding name="WsHttpBindingForIsm" maxReceivedMessageSize="90000000">
+          <readerQuotas maxArrayLength="1000000" maxStringContentLength="40000000" />
+        </binding>
+        <binding name="WsHttpBindingForRemoteAccess" maxReceivedMessageSize="90000000">
+          <readerQuotas maxArrayLength="1000000" maxStringContentLength="40000000" />
+        </binding>
+        <binding name="WorkerWsHttpBinding" maxReceivedMessageSize="2000000" useDefaultWebProxy="false" bypassProxyOnLocal="true">
+          <readerQuotas maxArrayLength="2000000" maxStringContentLength="2000000" />
+          <security mode="Message">
+            <message clientCredentialType="Windows" />
+          </security>
+        </binding>
+        <binding name="WorkerWsHttpBindingWithLargeMessageSize" maxReceivedMessageSize="50000000" useDefaultWebProxy="false" bypassProxyOnLocal="true">
+          <readerQuotas maxArrayLength="2000000" maxStringContentLength="2000000" />
+          <security mode="Message">
+            <message clientCredentialType="Windows" />
+          </security>
+        </binding>
+        <binding name="ControllerWsHttpBinding" closeTimeout="00:00:02" />
+        <binding name="ControllerWsHttpBindingWithLargeMessageSize" maxReceivedMessageSize="50000000" closeTimeout="00:00:02" />
+        <binding name="WorkerWsHttpBindingLinux" maxReceivedMessageSize="2000000" useDefaultWebProxy="false" bypassProxyOnLocal="true">
+          <readerQuotas maxArrayLength="2000000" maxStringContentLength="2000000" />
+          <security mode="Message">
+            <message clientCredentialType="Windows" negotiateServiceCredential="false" establishSecurityContext="false" />
+          </security>
+        </binding>
+        <binding name="WorkerWsHttpBindingWithLargeMessageSizeLinux" maxReceivedMessageSize="50000000" useDefaultWebProxy="false" bypassProxyOnLocal="true">
+          <readerQuotas maxArrayLength="2000000" maxStringContentLength="2000000" />
+          <security mode="Message">
+            <message clientCredentialType="Windows" negotiateServiceCredential="false" establishSecurityContext="false" />
+          </security>
+        </binding>
+      </wsHttpBinding>
+    </bindings>
+  </system.serviceModel>
+  <appSettings>
+    <!--Select=add[@key='LogToCDF']-->
+    <add key="LogToCDF" value="1" />
+    <!--Select=add[@key='RegistryAccessProvider']-->
+    <add key="RegistryAccessProvider" value="Local" />
+    <!--Select=add[@key='IdentityProvider']-->
+    <add key="IdentityProvider" value="ActiveDirectory" />
+    <!--Select=add[@key='IdentitySettingsProvider']-->
+    <add key="IdentitySettingsProvider" value="Registry" />
+    <!--Select=add[@key='IsCloud']-->
+    <add key="IsCloud" value="False" />
+    <!--Select=add[@key='WebSocket.Url']-->
+    <add key="WebSocket.Url" value="https://+:443/Citrix/XaXdProxy/" />
+    <!--Select=add[@key='WebSocket.InterBroker.Url']-->
+    <add key="WebSocket.InterBroker.Url" value="https://+:443/Citrix/InterBroker/v1/" />
+    <!--Select=add[@key='Type:IWorkerConnectionFactory:Default']-->
+    <add key="Type:IWorkerConnectionFactory:Default" value="Citrix.Cds.Broker.WorkerConnectionFactoryProxy, WorkerConnectionFactory.Proxy, PublicKeyToken=a80ce61cfbf8b47a" />
+    <!--Select=add[@key='Type:ICwcSupport:Default']-->
+    <add key="Type:ICwcSupport:Default" value="Citrix.CwcSupport.ProxyFmaSupportPlugin, ProxyFmaSupport, PublicKeyToken=a80ce61cfbf8b47a" />
+  </appSettings>
+  <runtime>
+    <generatePublisherEvidence enabled="false" />
+    <gcServer enabled="true" />
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <probing privatePath="Pipeline/Contracts" />
+    </assemblyBinding>
+  </runtime>
+</configuration>
