@@ -13,7 +13,7 @@
 
 --bat실행 시 관리자권한 실행
 
-3. 실행화면 및 결과
+# 3. 실행화면 및 결과
 <img width="1219" alt="image" src="https://user-images.githubusercontent.com/126259075/234231947-32f22b74-24c7-4cb4-834a-5e3b25564291.png">
 ## 스크립트 실행
 <img width="699" alt="image" src="https://user-images.githubusercontent.com/126259075/234232303-0b636525-7220-4442-ae6e-b5467b67f175.png">
