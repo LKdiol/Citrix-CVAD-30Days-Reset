@@ -20,5 +20,5 @@
 ## 30일 리카운트 
 
 
---예토전생 성공
+이제 30일로 <del>예토전생</del> 되었습니다.<br>
 <img width="752" alt="image" src="https://user-images.githubusercontent.com/126259075/234233677-6184b8ee-7194-4a1e-9cfe-e7c73f36d119.png">
