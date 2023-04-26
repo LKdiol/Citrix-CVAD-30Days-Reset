@@ -2,16 +2,18 @@
 시트릭스 30일 Trial License 초기화
 
 
-사용 설명
-
+## 사용 설명
+      # 1.CVAD ISO파일 내에 "x64\Citrix Desktop Delivery Controller\Broker_Servic_x64" 설치파일 bat 스크립트경로로 복사
 <img width="1133" alt="image" src="https://user-images.githubusercontent.com/126259075/234230405-879993f2-7212-40f8-a9eb-b0171b09a41a.png">
-# 1.CVAD ISO파일 내에 "x64\Citrix Desktop Delivery Controller\Broker_Servic_x64" 설치파일 bat 스크립트경로로 복사
+
 
 # 2.bat 파일 가이드
 - Citrix 30Day Reset.bat --> 2203 버전 이상일 경우
 - Citrix 30Day 1912ver old.bat  --> 1912 버전 이하일 경우 
 
---bat실행 시 관리자권한 실행
+      --bat실행 시 관리자권한 실행
+![image](https://user-images.githubusercontent.com/126259075/234447834-1bcaa942-6dcc-4a58-a87c-e07ae16a3875.png)
+
 
 # 3. 실행화면 및 결과
 <img width="1219" alt="image" src="https://user-images.githubusercontent.com/126259075/234231947-32f22b74-24c7-4cb4-834a-5e3b25564291.png">
