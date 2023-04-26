@@ -1,11 +1,13 @@
 @echo off
-::°æ·ÎÁöÁ¤
-cd "C:\Citrix Broker Reset"
+::ê²½ë¡œì§€ì •
+:: cd "C:\Citrix Broker Reset"
+set location=%~dp0
+cd %location%
 
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-title ½ÃÆ®¸¯½º 30ÀÏ License ÃÊ±âÈ­ Åø
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+title ì‹œíŠ¸ë¦­ìŠ¤ 30ì¼ License ì´ˆê¸°í™” íˆ´
 
-echo ±¸¼º ÁØºñÁß...
+echo êµ¬ì„± ì¤€ë¹„ì¤‘...
 set loweruuid=80ef19ea-bc65-4daa-b241-f6a68c702a94
 powershell "Get-wmiobject -class win32_product | where name -eq """Citrix Broker Service"""" |findstr IdentifyingNumber > "%TEMP%\Identifying.log"
 powershell "(Get-Content '%TEMP%\Identifying.log').ToLower()" > "%TEMP%\Identifying2.log"
@@ -14,7 +16,7 @@ set /p loweruuid=<"%TEMP%\Identifying2.log"
 del /f /s /q "%TEMP%\Identifying*" >nul
 cls
 
-:: HighAvailability ¼­ºñ½º ±¸¼ºÆÄÀÏ ÄÄÆÄÀÏ
+:: HighAvailability ì„œë¹„ìŠ¤ êµ¬ì„±íŒŒì¼ ì»´íŒŒì¼
 IF EXIST "HighAvailability Service\HighAvailabilityService.exe" (
 goto install
 ) ELSE (
@@ -24,35 +26,35 @@ pause
 
 :install
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à [000%%.] 
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [000%%.] 
 echo. 
-:: Citrix ºê·ÎÄ¿ ¹× HA ¼­ºñ½º Á¾·á ±¸°£
+:: Citrix ë¸Œë¡œì»¤ ë° HA ì„œë¹„ìŠ¤ ì¢…ë£Œ êµ¬ê°„
 net stop "Citrix High Availability Service" /Y >nul
 timeout -nobreak 2 >nul
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ###¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à [005%%.] 
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ###â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [005%%.] 
 net stop "Citrix Broker Service" /Y >nul
 net stop "Citrix Broker Service" /Y >nul
 cls
-:: Citrix ºê·ÎÄ¿ ¼­ºñ½º Á¦°Å ±¸°£
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ######¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à [015%%.] 
+:: Citrix ë¸Œë¡œì»¤ ì„œë¹„ìŠ¤ ì œê±° êµ¬ê°„
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ######â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [015%%.] 
 echo. 
 msiexec /x Broker_Service_x64.msi /quiet 
 timeout -nobreak 3 >nul
 cls
-:: Citrix ºê·ÎÄ¿ ¼­ºñ½º 7 1912 ¹öÀü ¼³Ä¡ ±¸°£
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ##########¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à [030%%.] 
+:: Citrix ë¸Œë¡œì»¤ ì„œë¹„ìŠ¤ 7 1912 ë²„ì „ ì„¤ì¹˜ êµ¬ê°„
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ##########â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [030%%.] 
 echo.
 msiexec /i 1912Broker_Service_x64.msi /quiet 
-:: Citrix High Availability ¼­ºñ½º Àç±¸¼º ±¸°£
+:: Citrix High Availability ì„œë¹„ìŠ¤ ì¬êµ¬ì„± êµ¬ê°„
 copy /y "1912HighAvailability Service\*.*" "C:\Program Files\Citrix\Broker\Service" >nul
 sc create "CitrixHighAvailabilityService" DisplayName="Citrix High Availability Service" binPath="C:\Program Files\Citrix\Broker\Service\HighAvailabilityService.exe" >nul
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "Type" /t REG_DWORD /d 16 >nul
@@ -64,41 +66,41 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "Description" /t REG_SZ /d "The Citrix High Availability service provides continuity of service during outage of central site." >nul
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "FailureActions" /t REG_BINARY /d 80510100010000000100000003000000140000000100000060EA00000100000060EA00000100000060EA0000 >nul
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "ServiceSidType" /t REG_DWORD /d 1 >nul
-:: Citrix ºê·ÎÄ¿ ¹× HA ¼­ºñ½º ½ÃÀÛ ±¸°£
+:: Citrix ë¸Œë¡œì»¤ ë° HA ì„œë¹„ìŠ¤ ì‹œì‘ êµ¬ê°„
 net start "Citrix Broker Service" >nul
 net start "Citrix High Availability Service" >nul
 
 timeout -nobreak 3 >nul
 cls
-:: Citrix ºê·ÎÄ¿ ¹× HA ¼­ºñ½º Á¾·á ±¸°£
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ############¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à [040%%.] 
+:: Citrix ë¸Œë¡œì»¤ ë° HA ì„œë¹„ìŠ¤ ì¢…ë£Œ êµ¬ê°„
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ############â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [040%%.] 
 echo.
 net stop "Citrix High Availability Service" /Y >nul
 net stop "Citrix Broker Service" /Y >nul
 net stop "Citrix Broker Service" /Y >nul
 cls
-:: Citrix ºê·ÎÄ¿ ¼­ºñ½º Á¦°Å ±¸°£
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ##############¡à¡à¡à¡à¡à¡à¡à¡à¡à¡à [050%%.] 
+:: Citrix ë¸Œë¡œì»¤ ì„œë¹„ìŠ¤ ì œê±° êµ¬ê°„
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ##############â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [050%%.] 
 echo.
 msiexec /x 1912Broker_Service_x64.msi /quiet 
 timeout -nobreak 3 >nul
 cls
-:: Citrix ºê·ÎÄ¿ ¼­ºñ½º 7 2203 ¹öÀü ¼³Ä¡ ±¸°£
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ###############¡à¡à¡à¡à¡à¡à¡à¡à¡à [055%%.] 
+:: Citrix ë¸Œë¡œì»¤ ì„œë¹„ìŠ¤ 7 2203 ë²„ì „ ì„¤ì¹˜ êµ¬ê°„
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ###############â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡â–¡ [055%%.] 
 echo.
 msiexec /i Broker_Service_x64.msi /quiet 
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ##################¡à¡à¡à¡à¡à¡à [070%%.] 
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ##################â–¡â–¡â–¡â–¡â–¡â–¡ [070%%.] 
 echo.
-:: Citrix High Availability ¼­ºñ½º Àç±¸¼º ±¸°£
+:: Citrix High Availability ì„œë¹„ìŠ¤ ì¬êµ¬ì„± êµ¬ê°„
 copy /y "HighAvailability Service\*.*" "C:\Program Files\Citrix\Broker\Service" >nul
 sc create "CitrixHighAvailabilityService" DisplayName="Citrix High Availability Service" binPath="C:\Program Files\Citrix\Broker\Service\HighAvailabilityService.exe" >nul
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "Type" /t REG_DWORD /d 16 >nul
@@ -110,46 +112,46 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "Description" /t REG_SZ /d "The Citrix High Availability service provides continuity of service during outage of central site." >nul
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "FailureActions" /t REG_BINARY /d 80510100010000000100000003000000140000000100000060EA00000100000060EA00000100000060EA0000 >nul
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\CitrixHighAvailabilityService" /f /v "ServiceSidType" /t REG_DWORD /d 1 >nul
-:: Citrix ºê·ÎÄ¿ ¹× HA ¼­ºñ½º ½ÃÀÛ ±¸°£
+:: Citrix ë¸Œë¡œì»¤ ë° HA ì„œë¹„ìŠ¤ ì‹œì‘ êµ¬ê°„
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ###################¡à¡à¡à¡à¡à [075%%.] 
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ###################â–¡â–¡â–¡â–¡â–¡ [075%%.] 
 echo.
 net start "Citrix Broker Service" >nul
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                ######################¡à¡à [085%%.] 
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                ######################â–¡â–¡ [085%%.] 
 echo.
 net start "Citrix High Availability Service" >nul
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà Áß...
-echo                #######################¡à [095%%.] 
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ ì¤‘...
+echo                #######################â–¡ [095%%.] 
 echo.
-:: Citrix ºê·ÎÄ¿ ¼­ºñ½º ¼³Ä¡ ÆÄÀÏ ¼û±â±â
+:: Citrix ë¸Œë¡œì»¤ ì„œë¹„ìŠ¤ ì„¤ì¹˜ íŒŒì¼ ìˆ¨ê¸°ê¸°
 if %loweruuid:~0,8%==80ef19ea goto skip
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\%brokeruuid:~20,38%" /f /v "SystemComponent" /t REG_DWORD /d 1 > nul
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\%loweruuid:~21,36%_" /f /v "SystemComponent" /t REG_DWORD /d 1 > nul
 
 :skip
 cls
-echo Citrix 30Day Trial License ÃÊ±âÈ­
-echo ÁøÇà¿Ï·á!!
+echo Citrix 30Day Trial License ì´ˆê¸°í™”
+echo ì§„í–‰ì™„ë£Œ!!
 echo                ######################## [100%%.] 
 echo.
 timeout 5
 exit
 
 :package
-:: HA ÆĞÅ°Áö¶óÀÎ 
+:: HA íŒ¨í‚¤ì§€ë¼ì¸ 
 mkdir "HighAvailability Service"
 msiexec /a Broker_Service_x64.msi targetdir="%TEMP%" /qn
 timeout -nobreak 3 >nul
 copy /y "%TEMP%\Citrix\Broker\Service\HighAvailability*" "HighAvailability Service" >nul
 
-:: HA ÆĞÅ°Áö TEMPÆÄÀÏ Á¦°Å
+:: HA íŒ¨í‚¤ì§€ TEMPíŒŒì¼ ì œê±°
 del /f /s /q "%TEMP%\Broker_Service_x64.msi"
 rmdir /s /q "%TEMP%\Citrix"
 
